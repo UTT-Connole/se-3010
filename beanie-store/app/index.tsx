@@ -1,6 +1,8 @@
 import { Text, View, Button, ToastAndroid, Platform, Alert } from "react-native";
 import {useState, useEffect} from 'react'
 
+import { Link } from 'expo-router'
+
 
 const storeName = "Beanie Store"
 
@@ -12,11 +14,13 @@ const Beanie = ({ color, hank }: { color: string; hank?: string }) => {
 
 const BeanieStore = () => {
 
-  const [version, setVersion] = useState(0)
+  const [version, setVersion] = useState(5)
+
+  console.log('Outside')
 
   useEffect(() => {
-    console.log('BeanieStore mounted')
-  }, [])
+    console.log('Inside UseEffect')
+  },[])
 
   useEffect(() => {
     console.log('the new version is ', version)
@@ -41,6 +45,10 @@ const BeanieStore = () => {
         title="Button"
         color="#841584"
       />
+      <Link href="/cowboyhat" asChild><Text>Check out our Cowboy hats</Text></Link>
+      <Link href="/blue" asChild><Text>Blue</Text></Link>
+      <Link href="/Brycen" asChild><Text>Brycen</Text></Link>
+      <Link href="/cowboy/hats" asChild><Text>Check out our Cowboy hats</Text></Link>
 
     </View>
   );
