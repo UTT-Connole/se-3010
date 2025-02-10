@@ -2,10 +2,11 @@ import {View, Text} from 'react-native'
 import { useLocalSearchParams } from 'expo-router';
 
 const Color = () => {
-    const { slug } = useLocalSearchParams();
+    const { color } = useLocalSearchParams();
+  console.log(color)
   return (
     <View>
-      <Text>Color: {slug}</Text>
+      <Text>Color: {color}</Text>
     </View>
   )
 }
