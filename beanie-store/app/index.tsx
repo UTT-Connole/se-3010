@@ -26,14 +26,7 @@ const BeanieStore = ({numberOfSocks=40, beanieBank=beanies}: {numberOfSocks: num
 
   const [version, setVersion] = useState(5)
 
-  console.log('Outside')
-
   useEffect(() => {
-    console.log('Inside UseEffect')
-  },[])
-
-  useEffect(() => {
-    console.log('the new version is ', version)
     if (version > 10) {
       ToastAndroid.show('Version is too high', ToastAndroid.LONG)
       setVersion(0)

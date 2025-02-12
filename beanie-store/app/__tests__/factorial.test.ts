@@ -1,4 +1,4 @@
-import { factorial  } from './factorial';
+import { factorial  } from '@/app/factorial'
 
 describe('factorial tests', () => {
     it('should run', () => {
