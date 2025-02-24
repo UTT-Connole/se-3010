@@ -1,15 +1,21 @@
-import { Text, View, Button, ToastAndroid, Platform, Alert } from "react-native";
+import { Text, View, Button, FlatList, ToastAndroid, Platform, Alert, ScrollView, Image } from "react-native";
 import {useState, useEffect} from 'react'
 import { StatusBar } from 'expo-status-bar';
-
+import BeanieLink from "@/components/BeanieLink";
 import { Link } from 'expo-router'
+
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+
 
 
 const storeName = "Beanie Store"
 
 const Beanie = ({ color, hank }: { color: string; hank?: string }) => {
   return (
+    <>
     <Text style={{marginBottom: 5}}>My {color} Beanie by {hank}</Text>
+    <FontAwesome5 name="hat-cowboy" size={24} color="black" />
+    </>
   )
 }
 
@@ -22,8 +28,19 @@ const beanies = [
   {color: 'Brayden'},
 ]
 
+const generateBeanies = (numberOfBeanies: number) => {
+  const newBeanies = []
+  for (let i = 0; i < numberOfBeanies; i++) {
+    newBeanies.push({color: 'Blue', hank: 'Green', id: i})
+    console.log(i)
+  }
+  return newBeanies
+}
+
+
 const BeanieStore = ({numberOfSocks=40, beanieBank=beanies}: {numberOfSocks: number, beanieBank:typeof beanies}) => {
 
+  const beanies2 = generateBeanies(10000)  
   const [version, setVersion] = useState(5)
 
   useEffect(() => {
@@ -42,19 +59,18 @@ const BeanieStore = ({numberOfSocks=40, beanieBank=beanies}: {numberOfSocks: num
 
       <Text>Welcome to {storeName} v{version}</Text>
       <Text>We have {numberOfSocks} socks!</Text>
-      {beanieBank.map((beanie, index) => (
-        <Beanie key={index} color={beanie.color} hank={beanie.hank} />
-        ))}
-
       <Button
       onPress={() => setVersion(version + 1)}
       title="Button"
       color="#d2691e"
       />
-      <Link href="/cowboyhat" asChild><Text>Check out our Cowboy hats</Text></Link>
-      <Link href="/blue" asChild><Text>Blue</Text></Link>
-      <Link href="/Brycen" asChild><Text>Brycen</Text></Link>
-      <Link href="/cowboy/hats" asChild><Text>Check out our Cowboy hats</Text></Link>
+
+    <FlatList
+        data={beanies2}
+        renderItem={(beanie) => <Beanie color={beanie.color} hank={beanie.hank} />}
+        keyExtractor={beanie => beanie.id}
+      />
+      <BeanieLink href="/cowboyhat" text="Check out our Cowboy hats"/>
 
     </View>
   );
