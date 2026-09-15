@@ -7,6 +7,9 @@ import ThemeContext from "@/contexts/ThemeContext";
 
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+
 
 
 const storeName = "Beanie Store"
@@ -22,15 +25,6 @@ const Beanie = ({ color, hank }: { color: string; hank?: string }) => {
   )
 }
 
-const beanies = [
-  {color: 'Red', hank: 'Aaron'},
-  {color: 'Blue', hank: 'Green'},
-  {color: 'Nick', hank: 'Smith'},
-  {color: 'Orange', hank: 'Greene'},
-  {color: 'Brown', hank: 'The Cow Dog'},
-  {color: 'Brayden'},
-]
-
 const generateBeanies = (numberOfBeanies: number) => {
   const newBeanies = []
   for (let i = 0; i < numberOfBeanies; i++) {
@@ -40,12 +34,29 @@ const generateBeanies = (numberOfBeanies: number) => {
   return newBeanies
 }
 
+const setInitialData = async () => {
+  AsyncStorage.setItem('beanies', JSON.stringify(generateBeanies(10)))
+}
 
-const BeanieStore = ({numberOfSocks=40, beanieBank=beanies}: {numberOfSocks: number, beanieBank:typeof beanies}) => {
+const getBeanieData = async (callback) => {
+  const data = await AsyncStorage.getItem('beanies')
+  callback(JSON.parse(data))
+  return JSON.parse(data)
+}
+
+const BeanieStore = ({numberOfSocks=40, beanieBank}: {numberOfSocks: number, beanieBank:typeof beanies}) => {
+
+
 
   const {theme, setTheme} = useContext(ThemeContext)
-  const beanies2 = generateBeanies(2)  
   const [version, setVersion] = useState(5)
+
+  const [beanies, setBeanies] = useState([])
+
+  useEffect(() => {
+    // setInitialData()
+    getBeanieData(setBeanies)
+  },[])
 
   useEffect(() => {
     if (version > 10) {
@@ -73,7 +84,7 @@ const BeanieStore = ({numberOfSocks=40, beanieBank=beanies}: {numberOfSocks: num
 
     <BeanieLink href="/cowboyhat" text="Check out our Cowboy hats"/>
     <FlatList
-        data={beanies2}
+        data={beanies}
         renderItem={(beanie) => <Beanie color={beanie.color} hank={beanie.hank} />}
         keyExtractor={beanie => beanie.id}
       />
