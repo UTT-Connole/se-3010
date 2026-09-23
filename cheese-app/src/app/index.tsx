@@ -1,24 +1,41 @@
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { useState } from "react";
 
+import ThemedButton from "@/components/ThemedButton";
+
 export default function Index() {
-
-  const [myName, setMyName] = useState("Dom")
-
-  console.log(myName)
+  const [myName, setMyName] = useState("Dom");
+  const [color, setColor] = useState("blue");
 
   const changeName = () => {
-    console.log(myName)
-    setMyName("Brayden")
-    console.log(myName)
-  }
+    setMyName("Brayden");
+  };
 
   return (
     <View style={styles.container}>
-      <Text>{myName} loves Cheese</Text>
-      <Text>So does the class</Text>
+      <View style={styles.card}>
+        <Text style={styles.title}>{myName} loves Cheese</Text>
+        <Text style={styles.subtitle}>So does the class</Text>
 
-    <Pressable onPress={changeName}><Text>Press Me to change the name</Text></Pressable>
+        <ThemedButton
+          title="Press Me to change the name"
+          color={color}
+          onPress={changeName}
+          style={styles.button}
+        />
+        <ThemedButton
+          title="Press Me to change the color to red"
+          color={color}
+          onPress={()=> setColor("red")}
+          style={styles.button}
+        />
+        <ThemedButton
+          title="Press Me to change the color to blue"
+          color={color}
+          onPress={()=> setColor("blue")}
+          style={styles.button}
+        />
+      </View>
     </View>
   );
 }
@@ -28,5 +45,36 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#f5f0e6",
+    padding: 24,
+  },
+  card: {
+    width: "100%",
+    maxWidth: 360,
+    alignItems: "center",
+    gap: 8,
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    paddingVertical: 32,
+    paddingHorizontal: 24,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 3,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "700",
+    color: "#2b2b2b",
+    textAlign: "center",
+  },
+  subtitle: {
+    fontSize: 15,
+    color: "#7a7a7a",
+    marginBottom: 16,
+  },
+  button: {
+    marginTop: 8,
   },
 });
