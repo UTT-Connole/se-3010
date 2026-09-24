@@ -1,49 +1,51 @@
 import { Text, View, StyleSheet } from "react-native";
-import { useState } from "react";
-import { Link } from "expo-router";
+import { useEffect, useState } from "react"
 
+import Cracker from "@/components/Cracker";
 import ThemedButton from "@/components/ThemedButton";
 
-export default function Index() {
-  const [myName, setMyName] = useState("Dom");
-  const [color, setColor] = useState("blue");
+export default function Crackers() {
+  const [crackerColor, setCrackerColor] = useState("#d9b166");
+  const [crackerColor2, setCrackerColor2] = useState("#d9b166");
+  const [showSecondCracker, setShowSecondCracker] = useState(true);
 
-  const changeName = () => {
-    setMyName("Brayden");
-  };
+  useEffect(() => {
+    console.log('useEffect in Crackers')
+  }, [])
 
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <Text style={styles.title}>{myName} loves Cheese</Text>
-        <Text style={styles.subtitle}>So does the class</Text>
+        <Text style={styles.title}>Do crackers go with cheese?</Text>
+        <Text style={styles.subtitle}>Yes, absolutely.</Text>
+
+        <Cracker color={crackerColor} />
+        {showSecondCracker && <Cracker color={crackerColor2} />}
 
         <ThemedButton
-          title="Press Me to change the name"
-          color={color}
-          onPress={changeName}
+          title="Make it red"
+          color="#c0392b"
+          onPress={() => setCrackerColor("#c0392b")}
           style={styles.button}
         />
         <ThemedButton
-          title="Press Me to change the color to red"
-          color={color}
-          onPress={()=> setColor("red")}
+          title="Make it tan"
+          color="#d9b166"
+          onPress={() => setCrackerColor("#d9b166")}
           style={styles.button}
         />
         <ThemedButton
-          title="Press Me to change the color to blue"
-          color={color}
-          onPress={()=> setColor("blue")}
+          title="Remove a cracker"
+          color="#555"
+          onPress={() => setShowSecondCracker(false)}
           style={styles.button}
         />
-
-        <Link href="/crackers" style={styles.link}>
-          Do crackers go with cheese?
-        </Link>
       </View>
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -77,14 +79,8 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 15,
     color: "#7a7a7a",
-    marginBottom: 16,
   },
   button: {
     marginTop: 8,
-  },
-  link: {
-    marginTop: 16,
-    fontSize: 14,
-    color: "#3c87f7",
   },
 });
