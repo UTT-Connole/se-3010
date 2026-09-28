@@ -1,13 +1,17 @@
 import { Text, View, StyleSheet } from "react-native";
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 
 import Cracker from "@/components/Cracker";
 import ThemedButton from "@/components/ThemedButton";
+import { CheeseContext } from "@/contexts/CheeseContext";
 
 export default function Crackers() {
   const [crackerColor, setCrackerColor] = useState("#d9b166");
   const [crackerColor2, setCrackerColor2] = useState("#d9b166");
   const [showSecondCracker, setShowSecondCracker] = useState(true);
+
+  const {setCheese} = useContext(CheeseContext)
+
 
   useEffect(() => {
     console.log('useEffect in Crackers')
@@ -38,6 +42,12 @@ export default function Crackers() {
           title="Remove a cracker"
           color="#555"
           onPress={() => setShowSecondCracker(false)}
+          style={styles.button}
+        />
+        <ThemedButton
+          title="Make it american"
+          color="#c0392b"
+          onPress={() => setCheese("american")}
           style={styles.button}
         />
       </View>

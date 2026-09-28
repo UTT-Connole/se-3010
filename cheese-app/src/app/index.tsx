@@ -2,6 +2,7 @@ import { Text, View, StyleSheet } from "react-native";
 import { useState } from "react";
 import { Link } from "expo-router";
 
+
 import ThemedButton from "@/components/ThemedButton";
 
 export default function Index() {
@@ -14,6 +15,7 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
+
       <View style={styles.card}>
         <Text style={styles.title}>{myName} loves Cheese</Text>
         <Text style={styles.subtitle}>So does the class</Text>
@@ -31,9 +33,16 @@ export default function Index() {
           style={styles.button}
         />
         <ThemedButton
-          title="Press Me to change the color to blue"
+          title="Press Me to change the cheese to blue"
           color={color}
           onPress={()=> setColor("blue")}
+          style={styles.button}
+        />
+
+        <ThemedButton
+          title="Not in the context"
+          color={color}
+          onPress={()=> setColor("green")}
           style={styles.button}
         />
 

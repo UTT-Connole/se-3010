@@ -1,5 +1,8 @@
 import { Pressable, StyleSheet, Text, type PressableProps, type StyleProp, type ViewStyle } from "react-native";
 
+import { CheeseContext } from "@/contexts/CheeseContext";
+import { useContext } from "react";
+
 type ThemedButtonProps = Omit<PressableProps, "style"> & {
   title: string;
   color: string;
@@ -7,9 +10,11 @@ type ThemedButtonProps = Omit<PressableProps, "style"> & {
 };
 
 export default function ThemedButton({ title, color, style, ...rest }: ThemedButtonProps) {
+  const {cheese, theBestCheese} = useContext(CheeseContext)
+
   return (
     <Pressable style={[styles.button, { backgroundColor: color }, style]} {...rest}>
-      <Text style={styles.text}>{title}</Text>
+      <Text style={styles.text}>{title} {cheese} {theBestCheese}</Text>
     </Pressable>
   );
 }
